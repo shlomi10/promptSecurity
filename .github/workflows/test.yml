@@ -30,6 +30,7 @@ jobs:
 
     - name: Run Selenium tests with pytest and generate Allure report
       run: |
+        export CHROME_BIN=/usr/bin/chromium-browser
         pytest tests_ui_layout/ --alluredir=allure-results
 
     - name: Upload Allure report as an artifact
