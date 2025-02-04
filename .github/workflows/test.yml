@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest  # Switch to Windows runner
 
     steps:
     - uses: actions/checkout@v3
@@ -18,10 +18,13 @@ jobs:
       with:
         python-version: '3.12.1' 
 
-    - name: Install system dependencies (Chrome and ChromeDriver)
+    - name: Install system dependencies (Google Chrome and ChromeDriver)
       run: |
-        sudo apt-get update
-        sudo apt-get install -y chromium-browser chromium-chromedriver
+        # Install Google Chrome
+        choco install googlechrome
+        
+        # Install ChromeDriver
+        choco install chromedriver
 
     - name: Install Python dependencies
       run: |
@@ -30,7 +33,7 @@ jobs:
 
     - name: Run Selenium tests with pytest and generate Allure report
       run: |
-        pytest tests_ui_layout/ --alluredir=allure-results
+        pytest -s tests_ui_layout/ --alluredir=allure-results
 
     - name: Upload Allure report as an artifact
       uses: actions/upload-artifact@v4
