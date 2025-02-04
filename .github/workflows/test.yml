@@ -24,10 +24,13 @@ jobs:
             # Install Google Chrome
       - name: Install Google Chrome
         run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wget
+          # Remove any existing Chrome versions
+          sudo apt-get remove -y google-chrome-stable
+          
+          # Install a specific version of Chrome (e.g., v131)
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
+          google-chrome-stable --version
 
       - name: Install ChromeDriver
         run: |
