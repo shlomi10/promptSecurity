@@ -18,7 +18,6 @@ def initialize():
     extension_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'extension.crx')
     extension_path = os.path.abspath(extension_path)
     options.add_extension(extension_path)
-    # options.add_extension(r"..\extension.crx")
     options.add_argument("--lang=en-US")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_argument('--no-sandbox')
