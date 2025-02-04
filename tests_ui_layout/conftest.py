@@ -2,6 +2,7 @@ import allure
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import os
 
 from pages.bank_of_america import BankOfAmerica
 from pages.chatGPT import ChatGPT
@@ -14,7 +15,10 @@ from utils.constants import EXTENSION_URL
 @pytest.fixture(scope="function", autouse=True)
 def initialize():
     options = Options()
-    options.add_extension(r"..\extension.crx")
+    extension_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'extension.crx')
+    extension_path = os.path.abspath(extension_path)
+    options.add_extension(extension_path)
+    # options.add_extension(r"..\extension.crx")
     options.add_argument("--lang=en-US")
     options.add_experimental_option("excludeSwitches", ["enable-automation"])
     options.add_argument('--no-sandbox')
