@@ -31,7 +31,11 @@ jobs:
         run: |
             CHROME_VERSION=$(google-chrome-stable --version | cut -d ' ' -f 3)
             CHROME_MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+
+            # Use the ChromeDriver mapping service to get the correct version
+            CHROMEDRIVER_URL=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION)
     
+            echo "Downloading ChromeDriver version: $CHROMEDRIVER_URL"
             wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
             unzip chromedriver_linux64.zip
             sudo mv chromedriver /usr/local/bin/
