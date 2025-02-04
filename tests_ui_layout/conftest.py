@@ -23,7 +23,7 @@ def initialize():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
 
-    options.add_argument('--headless=new') # Runs Chrome in headless mode.
+    # options.add_argument('--headless=new') # Runs Chrome in headless mode.
 
     driver = webdriver.Chrome(options=options)
 
