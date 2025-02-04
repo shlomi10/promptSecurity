@@ -1,0 +1,7 @@
+GEMINI_URL = "https://gemini.google.com/app"
+CHAT_GPT_URL = "https://chatgpt.com/"
+BANK_OF_AMERICA_URL="https://www.bankofamerica.com/"
+TEST_MAIL = "shlomi@gmail.com"
+EXTENSION_URL = "chrome-extension://lioipmboicklkopbigkbkcoaddkfimgo/html/popup.html"
+API_DOMAIN = "13793400-107d-406b-b9ed-5cd7bb22be98"
+API_KEY = "eu.prompt.security"
