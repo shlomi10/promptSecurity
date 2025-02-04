@@ -43,6 +43,7 @@ jobs:
             CHROME_DRIVER_VERSION=$(curl -sSL "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_VERSION")
             if [ -z "$CHROME_DRIVER_VERSION" ]; then
               echo "Error: Could not retrieve ChromeDriver version"
+              curl -sSL "https://chromedriver.storage.googleapis.com/LATEST_RELEASE" # Debugging output
               exit 1
             fi
             echo "ChromeDriver version: $CHROME_DRIVER_VERSION"
