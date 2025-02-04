@@ -16,12 +16,15 @@ jobs:
     - name: Set up Python 3.x
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12.1' 
+        python-version: '3.12.1'
 
-    - name: Install system dependencies (Chrome and ChromeDriver)
+    - name: Install system dependencies (Google Chrome and ChromeDriver)
       run: |
         sudo apt-get update
-        sudo apt-get install -y chromium-browser chromium-chromedriver
+        sudo apt-get install -y google-chrome-stable chromium-chromedriver
+
+    - name: Check Google Chrome path
+      run: which google-chrome
 
     - name: Install Python dependencies
       run: |
@@ -30,7 +33,9 @@ jobs:
 
     - name: Run Selenium tests with pytest and generate Allure report
       run: |
-        export CHROME_BIN=/usr/bin/chromium-browser
+        # Set the Chrome binary location and ensure Google Chrome is found
+        export CHROME_BIN=$(which google-chrome)
+        echo "Using Chrome binary: $CHROME_BIN"
         pytest tests_ui_layout/ --alluredir=allure-results
 
     - name: Upload Allure report as an artifact
