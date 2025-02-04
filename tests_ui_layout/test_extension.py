@@ -37,11 +37,11 @@ class TestExtensionFunctionality:
                 # chat_gpt_page.fill_details()
 
             # Print test result for GitHub Actions (successful)
-            print("✅ Test Passed: Extension works on ChatGPT")
+            print(" Test Passed: Extension works on ChatGPT")
 
         except AssertionError as e:
             # Print the failure message for GitHub Actions
-            print(f"❌ Test Failed: {str(e)}")
+            print(f" Test Failed: {str(e)}")
             raise
 
     @allure.story("Validate extension on Gemini")
@@ -70,11 +70,11 @@ class TestExtensionFunctionality:
                 assert error_message == "Couldn’t sign you in", f"Expected error message 'Couldn’t sign you in', but got {error_message}"
 
             # Print test result for GitHub Actions (successful)
-            print("✅ Test Passed: Extension works on Gemini")
+            print(" Test Passed: Extension works on Gemini")
 
         except AssertionError as e:
             # Print the failure message for GitHub Actions
-            print(f"❌ Test Failed: {str(e)}")
+            print(f" Test Failed: {str(e)}")
             raise
 
     @allure.story("Validate extension on Bank of America")
@@ -96,9 +96,9 @@ class TestExtensionFunctionality:
                 assert link == "https://www.bankofamerica.com/", f"Expected link 'https://www.bankofamerica.com', but got {link}"
 
             # Print test result for GitHub Actions (successful)
-            print("✅ Test Passed: Extension works on Bank of America")
+            print(" Test Passed: Extension works on Bank of America")
 
         except AssertionError as e:
             # Print the failure message for GitHub Actions
-            print(f"❌ Test Failed: {str(e)}")
+            print(f" Test Failed: {str(e)}")
             raise
