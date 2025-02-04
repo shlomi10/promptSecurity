@@ -1,59 +1,39 @@
-name: Run Tests
+name: Python Selenium Tests
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.12.1'
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12.1' 
 
-      - name: Install Google Chrome
-        run: |
-            wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-            sudo apt install -y ./google-chrome-stable_current_amd64.deb
-            google-chrome-stable --version
+    - name: Install system dependencies (Chrome and ChromeDriver)
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y chromium-browser chromium-chromedriver
 
-      - name: Install ChromeDriver
-        run: |
-            CHROME_VERSION=$(google-chrome-stable --version | grep -oP '\d+\.\d+\.\d+\.\d+')
-            CHROME_MAJOR_VERSION=$(echo $CHROME_VERSION | cut -d '.' -f 1)
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-            # Use the ChromeDriver mapping service to get the correct version
-            CHROMEDRIVER_URL=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_MAJOR_VERSION)
-    
-            echo "Downloading ChromeDriver version: $CHROMEDRIVER_URL"
-            wget https://chromedriver.storage.googleapis.com/$LATEST_RELEASE/chromedriver_linux64.zip
-            unzip chromedriver_linux64.zip
-            sudo mv chromedriver /usr/local/bin/
-            sudo chmod +x /usr/local/bin/chromedriver
-            chromedriver --version
+    - name: Run Selenium tests with pytest and generate Allure report
+      run: |
+        pytest tests/ --alluredir=allure-results
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          sudo apt-get install -y chromium-chromedriver
-
-      - name: Run tests
-        run: |
-          pytest --maxfail=1 --disable-warnings -q
-
-      - name: Upload Allure results
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: allure-results
+    - name: Upload Allure report as an artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: allure-report
+        path: allure-results/
